@@ -35,10 +35,15 @@ class PsychoPyGuiMock:
         self.list_of_values = []
         self.return_value = True
 
+        self.act_dlg_field_number = 0
 
+        gui.Dlg.__init__ = self.init
         gui.Dlg.addText = self.addText
         gui.Dlg.addField = self.addField
         gui.Dlg.show = self.show
+
+    def init(self, title='PsychoPy Dialog', pos=None, size=None, style=None, labelButtonOK=' OK ', labelButtonCancel=' Cancel ', screen=-1):
+        self.act_dlg_field_number = 0
 
     def getListOfTexts(self):
         return self.list_of_texts
@@ -61,6 +66,7 @@ class PsychoPyGuiMock:
         field.tip = tip
         field.enabled = enabled
         self.list_of_fields.append(field)
+        self.act_dlg_field_number += 1
 
     def addFieldValues(self, list_of_values):
         self.list_of_values = list_of_values
@@ -68,7 +74,7 @@ class PsychoPyGuiMock:
     def show(self):
         gui.Dlg.OK = self.return_value
         data = []
-        for field in self.list_of_fields:
+        for field in self.list_of_fields[-self.act_dlg_field_number:]:
             if len(self.list_of_values):
                 data.append(self.list_of_values[0])
                 self.list_of_values = self.list_of_values[1:]
