@@ -86,9 +86,15 @@ def GetKeys(keyList, modifiers = False, timeStamped = False):
         if returnKeyList[0] in keyList:
             returnKey = returnKeyList[0]
             returnKeyList = returnKeyList[1:]
-            return returnKey
+            if timeStamped:
+                return [(returnKey, 0.0)]
+            else:
+                return [returnKey]
     elif len(keyList) > 0:
-        return keyList[0]
+        if timeStamped:
+            return [(keyList[0], 0.0)]
+        else:
+            return [keyList[0]]
 
 event.getKeys = GetKeys
 
