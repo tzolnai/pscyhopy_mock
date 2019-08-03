@@ -74,6 +74,10 @@ class PsychoPyGuiMock:
     def show(self):
         gui.Dlg.OK = self.return_value
         data = []
+
+        if self.act_dlg_field_number == 0:
+            return data
+
         for field in self.list_of_fields[-self.act_dlg_field_number:]:
             if len(self.list_of_values):
                 data.append(self.list_of_values[0])
