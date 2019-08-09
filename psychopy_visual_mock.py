@@ -152,6 +152,7 @@ class PsychoPyVisualMock:
         return listOfDrawings
 
     def clear(self):
+        global listOfDrawings
         listOfDrawings = []
 
     def setReturnKeyList(self, keyList):
