@@ -83,11 +83,18 @@ returnKeyList = []
 def GetKeys(keyList, modifiers = False, timeStamped = False):
     global returnKeyList
     if len(returnKeyList) > 0:
-        if returnKeyList[0] in keyList:
+
+        if isinstance(returnKeyList[0], tuple):
+            returnKey = returnKeyList[0][0]
+            timeStamp = returnKeyList[0][1]
+        else:
             returnKey = returnKeyList[0]
+            timeStamp = 0.0
+
+        if returnKey in keyList:
             returnKeyList = returnKeyList[1:]
             if timeStamped:
-                return [(returnKey, 0.0)]
+                return [(returnKey, timeStamp)]
             else:
                 return [returnKey]
     elif len(keyList) > 0:
