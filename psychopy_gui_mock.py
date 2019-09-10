@@ -83,5 +83,10 @@ class PsychoPyGuiMock:
                 data.append(self.list_of_values[0])
                 self.list_of_values = self.list_of_values[1:]
             else:
-                data.append(field.initial)
+                if len(field.initial) > 0:
+                    data.append(field.initial)
+                elif field.choices is not None:
+                    data.append(field.choices[0])
+                else:
+                    data.append('')
         return data
