@@ -80,7 +80,7 @@ visual.Window.flip = __WindowFlip
 
 returnKeyList = []
 
-def GetKeys(keyList, modifiers = False, timeStamped = False):
+def GetKeys(keyList=[], modifiers = False, timeStamped = False):
     global returnKeyList
     if len(returnKeyList) > 0:
 
@@ -91,7 +91,7 @@ def GetKeys(keyList, modifiers = False, timeStamped = False):
             returnKey = returnKeyList[0]
             timeStamp = 0.0
 
-        if returnKey in keyList:
+        if returnKey in keyList or len(keyList) == 0:
             returnKeyList = returnKeyList[1:]
             if timeStamped:
                 return [(returnKey, timeStamp)]
@@ -102,6 +102,8 @@ def GetKeys(keyList, modifiers = False, timeStamped = False):
             return [(keyList[0], 0.0)]
         else:
             return [keyList[0]]
+    else:
+        return []
 
 event.getKeys = GetKeys
 
